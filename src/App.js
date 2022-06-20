@@ -4,6 +4,7 @@ import SignIn from "./component/Auth/SignIn";
 import Home from "./component/Home/home";
 import { Route, Switch } from "react-router-dom";
 import AdminPanel from "./component/adminPanel/AdminPanel";
+import AddCourse from './component/AddCourse/AddCourse'
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
       </Route>
       <Route path="/admin">
         <AdminPanel/>
+      </Route>
+      <Route path="/addcourse">
+        <AddCourse/>
       </Route>
     </Switch>
   );

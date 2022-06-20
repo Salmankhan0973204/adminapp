@@ -1,16 +1,15 @@
 
-import axios from "axios";
+
 import useInput from "../../hooks/use-input";
 import "./Auth.css"
 import { Link, useHistory } from "react-router-dom";
+import { useState } from "react";
 
 export default function SignUp() {
+  const [logindata, setlogindata] = useState([])
     let history = useHistory();
   const isNotEmpty = (value) => value.trim() !== "";
   const isEmail = (value) => value.includes("@");
-
-
-
   const {
     value: emailValue,
     isValid: emailIsValid,
@@ -26,9 +25,6 @@ export default function SignUp() {
     valueChangeHandler: passwordChangeHandler,
     inputBlurHandler: passwordBlurHandler,
   } = useInput(isNotEmpty);
-
-
-
   let formIsValid = false;
 
   if (
@@ -37,30 +33,40 @@ export default function SignUp() {
     passwordIsValid 
   
   ) {
-    formIsValid = true;
+
   }
 
   const submitHandler = (event) => {
-    axios
-      .post(`https://user-60895-default-rtdb.firebaseio.com/UESR.json`, {
-        
-        emailValue,
-        passwordValue,
-       
-      })
-      .then(() => {
-        history.push('/home')
-      });
     event.preventDefault();
-    alert("Sign Up Successfully")
-    if (!formIsValid) {
-      return;
-    }
-    console.log("Submitted!");
-  
-  };
+    
+    fetch(`https://user-7b630-default-rtdb.firebaseio.com/UESR.json`)
+    .then((response) => {
+      return response.json();
+      
+     
+    })
+    .then((data) => {
+console.log(data);
+    
+   const loginData = []
 
- 
+   for(const key in data ){
+    const user = data[key].logindata;
+    loginData.push(user)
+  
+   }
+      console.log("kkk")
+      setlogindata(logindata)
+     
+    });
+
+   
+}
+
+
+console.log(logindata)
+
+
   const emailClasses = emailHasError ? "form-control invalid" : "form-control";
   const passwordClasses = passwordHasError
     ? "form-control invalid"
@@ -69,9 +75,9 @@ export default function SignUp() {
   return (
     <div className="app">
        <div className="formInput">
-      <form onSubmit={submitHandler}>
+      <form onSubmit={submitHandler}  >
         <div className="Title">
-          <h2>Sign </h2>
+          <h2>SigIn </h2>
           <hr />
         </div>
      
@@ -80,7 +86,7 @@ export default function SignUp() {
           <input
             placeholder='Email'
             type="text"
-            id="name"
+         
             value={emailValue}
             onChange={emailChangeHandler}
             onBlur={emailBlurHandler}
@@ -94,7 +100,7 @@ export default function SignUp() {
          <input
             placeholder='Password'
               type="password"
-              id="name"
+           
               value={passwordValue}
               onChange={passwordChangeHandler}
               onBlur={passwordBlurHandler}
@@ -105,7 +111,7 @@ export default function SignUp() {
           </div>
         
         </div>
-        <button disabled={!formIsValid}>Submit</button>
+        <button  type="submit">Submit</button>
         <div className="new_reg"> <Link to="/signUp" >New Registration</Link></div>
       
       </form>

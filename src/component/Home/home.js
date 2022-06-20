@@ -9,7 +9,7 @@ const home = () => {
     <nav className="nav">
       <ul>
         <li>
-          <NavLink to='/quotes' activeClassName="active">
+          <NavLink to='/addCourse' activeClassName="active">
            Add Courses
           </NavLink>
         </li>

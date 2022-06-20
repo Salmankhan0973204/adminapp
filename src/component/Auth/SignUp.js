@@ -63,7 +63,7 @@ export default function SignUp() {
 
   const submitHandler = (event) => {
     axios
-      .post(`https://user-60895-default-rtdb.firebaseio.com/UESR.json`, {
+      .post(`https://user-7b630-default-rtdb.firebaseio.com/UESR.json`, {
         firstNameValue,
         lastNameValue,
         emailValue,
@@ -81,7 +81,7 @@ export default function SignUp() {
 
     console.log("Submitted!");
     
-    console.log(firstNameValue, lastNameValue, emailValue);
+   
   };
 
   const firstNameClasses = firstNameHasError
